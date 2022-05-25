@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import "./Products.css"
 
 export const ProductList = () => {
@@ -7,6 +8,7 @@ export const ProductList = () => {
     const [sortedProducts, setSorted] = useState([])
     const [overTwo, setOverTwo] = useState(false)
     
+    let navigate = useNavigate()
 
     const localKandyUser = localStorage.getItem("kandy_user")
     const kandyUserObject = JSON.parse(localKandyUser)
@@ -55,8 +57,10 @@ export const ProductList = () => {
     )
     
     return <>
+        <button onClick={() => navigate("/product/create")}>Create Product</button>
         <button onClick={() => {setOverTwo(true)}}>Top Priced</button>
         <button onClick={() => {setOverTwo(false)}}>Show All</button>
+
     <h2>List of Products</h2>
     <article className="products">
         {

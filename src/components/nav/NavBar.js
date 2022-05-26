@@ -1,5 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import { LocationList } from "../locations/LocationList"
+import { CustomerNavBar } from "./CustomerNav"
+import { EmployeeNavBar } from "./EmployeeNav"
 import "./NavBar.css"
 
 export const NavBar = () => {
@@ -8,26 +10,15 @@ export const NavBar = () => {
     const localKandyUser = localStorage.getItem("kandy_user")
     const kandyUserObject = JSON.parse(localKandyUser)
 
-    return <>
-        <ul className="navbar">
-            <li className="navbar__item active">
-                <Link className="navbar__link" to="/locations">Locations</Link>
-                <br></br>
-                {kandyUserObject.staff ? 
-                <Link className="navbar__link" to="/products">Products</Link> : null}
-            </li>
-            {
-                localStorage.getItem("kandy_user")
-                    ?
-            <li className="navbar__item navbar__logout">
-                <Link className="navbar__link" to="" onClick={() => {
-                    localStorage.removeItem("kandy_user")
-                    navigate("/", {replace: true})
-                }}>Logout</Link>
-            </li>
-            : ""
-            }
-        </ul>
-        </>
+    if (kandyUserObject.staff) {
+        return (
+            <EmployeeNavBar />
+        )
+    }
+    else {
+        return (
+            <CustomerNavBar />
+        )
+    }
 }
 

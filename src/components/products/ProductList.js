@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "./Products.css"
 
-export const ProductList = () => {
+export const ProductList = ({searchTermState, userSearch}) => {
     const [products, setProducts] = useState([])
     const [productTypes, setProductTypes] = useState([])
     const [sortedProducts, setSorted] = useState([])
@@ -12,6 +12,15 @@ export const ProductList = () => {
 
     const localKandyUser = localStorage.getItem("kandy_user")
     const kandyUserObject = JSON.parse(localKandyUser)
+
+    useEffect(
+        () => {
+            const searchedProducts = products.filter(product => 
+                product.name.toLowerCase().startsWith(searchTermState.toLowerCase()))
+            setSorted(searchedProducts)
+        },
+        [searchTermState]
+    )
 
     useEffect(
         () => {
@@ -57,9 +66,14 @@ export const ProductList = () => {
     )
     
     return <>
+        {kandyUserObject.staff ? <>
         <button onClick={() => navigate("/product/create")}>Create Product</button>
         <button onClick={() => {setOverTwo(true)}}>Top Priced</button>
-        <button onClick={() => {setOverTwo(false)}}>Show All</button>
+        <button onClick={() => {setOverTwo(false)}}>Show All</button> 
+        </> :
+        <button onClick={() => {setOverTwo(false)}}>Show All</button>}
+
+
 
     <h2>List of Products</h2>
     <article className="products">
@@ -77,9 +91,16 @@ export const ProductList = () => {
                 }
 
                 return <section className="product" key={`product--${product.id}`}>
+                    {kandyUserObject.staff ? <>
                     <header>Name: {product.name} <br></br>
                     Price: ${product.price} <br></br>
-                    Type: {type} </header>
+                    Type: ${type} </header> 
+                    </>:
+                    <>
+                    <header>Name: {product.name} <br></br>
+                    Price: ${product.price} </header>
+                    </> 
+                    }
                 </section>
             })
         }

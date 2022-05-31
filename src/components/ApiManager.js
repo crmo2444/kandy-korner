@@ -6,6 +6,14 @@ export const getAllCustomers = (setCustomers) => {
             })
 }
 
+export const getAllUsers = (setUsers) => {
+    return fetch(`http://localhost:8088/users`)
+            .then(response => response.json())
+            .then((userArray) => {
+                setUsers(userArray)
+            })
+}
+
 export const getCustomerDetails = (updateCustomer, customerId) => {
     return fetch(`http://localhost:8088/customers?_expand=user&userId=${customerId}`)
             .then(response => response.json())
@@ -144,6 +152,14 @@ export const savePurchase = (newPurchase, setFeedback) => {
 
 export const getPurchases = (setPurchases) => {
     return fetch(`http://localhost:8088/purchases?_expand=product`)
+            .then(response => response.json())
+            .then((purchasesArray) => {
+                setPurchases(purchasesArray)
+            }) 
+}
+
+export const getCustomerPurchases = (setPurchases) => {
+    return fetch(`http://localhost:8088/purchases?_expand=customer`)
             .then(response => response.json())
             .then((purchasesArray) => {
                 setPurchases(purchasesArray)

@@ -27,6 +27,7 @@ export const EmployeeList = () => {
                 id={employee.id} 
                 name={employee.name} 
                 email={employee.email} 
+                setterFunc={setEmployees}
                 />)
         }
     </article> </>

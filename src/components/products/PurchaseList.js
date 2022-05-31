@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { getProducts, getPurchases, getUsersAndCurrent } from "../ApiManager"
 
 export const PurchaseList = ({id, customerId}) => {
 
@@ -13,35 +14,21 @@ export const PurchaseList = ({id, customerId}) => {
 
     useEffect(
         () => {
-            fetch(`http://localhost:8088/purchases?_expand=product`)
-            .then(response => response.json())
-            .then((purchasesArray) => {
-                setPurchases(purchasesArray)
-            }) // View the initial state of userPurchases
+            getPurchases(setPurchases) // View the initial state of userPurchases
         },
         [] // When this array is empty, you are observing initial component state
     )
 
     useEffect(
         () => {
-            fetch(`http://localhost:8088/products`)
-            .then(response => response.json())
-            .then((productsArray) => {
-                setProducts(productsArray)
-            }) // View the initial state of userPurchases
+            getProducts(setProducts) // View the initial state of userPurchases
         },
         [] // When this array is empty, you are observing initial component state
     )
 
     useEffect(
         () => {
-            fetch(`http://localhost:8088/users`)
-            .then(response => response.json())
-            .then((usersArray) => {
-                setUserList(usersArray)
-                let currentUser = usersArray.find(user => kandyUserObject.id === user.id)   
-                setCurrentUser(currentUser) 
-            }) // View the initial state of userPurchases
+            getUsersAndCurrent(setUserList, setCurrentUser, kandyUserObject)// View the initial state of userPurchases
 
         },
         [] // When this array is empty, you are observing initial component state

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { getAllCustomers } from "../ApiManager"
 import { Customer } from "./Customer"
 import "./Customers.css"
 
@@ -10,11 +11,7 @@ export const CustomerList = () => {
 
     useEffect(
         () => {
-            fetch(`http://localhost:8088/users?isStaff=false`)
-                .then(response => response.json())
-                .then((customerArray) => {
-                    setCustomers(customerArray)
-                })
+            getAllCustomers(setCustomers)
         },
         []
     )

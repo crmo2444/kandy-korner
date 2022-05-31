@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { getEmployees } from "../ApiManager"
 import { Employee } from "./Employee"
 import "./Employees.css"
 
@@ -10,11 +11,7 @@ export const EmployeeList = () => {
 
     useEffect(
         () => {
-            fetch(`http://localhost:8088/users?isStaff=true`)
-                .then(response => response.json())
-                .then((employeeArray) => {
-                    setEmployees(employeeArray)
-                })
+            getEmployees(setEmployees)
         },
         []
     )

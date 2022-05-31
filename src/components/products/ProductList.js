@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { getProducts, getProductTypes } from "../ApiManager"
 import { ProductPurchase } from "./ProductPurchase"
 import "./Products.css"
 
@@ -25,22 +26,14 @@ export const ProductList = ({searchTermState, userSearch, setSearchTerms}) => {
 
     useEffect(
         () => {
-            fetch(`http://localhost:8088/products`)
-            .then(response => response.json())
-            .then((productsArray) => {
-                setProducts(productsArray)
-            }) // View the initial state of products
+            getProducts(setProducts) // View the initial state of products
         },
         [] // When this array is empty, you are observing initial component state
     )
 
     useEffect(
         () => {
-            fetch(`http://localhost:8088/productTypes`)
-            .then(response => response.json())
-            .then((productsArray) => {
-                setProductTypes(productsArray)
-            }) // View the initial state of products
+            getProductTypes(setProductTypes)// View the initial state of products
         },
         [] // When this array is empty, you are observing initial component state
     )

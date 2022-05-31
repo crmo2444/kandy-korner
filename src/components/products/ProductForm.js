@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { saveNewProduct } from "../ApiManager"
 
 export const ProductForm = () => {
     /*
@@ -31,17 +32,7 @@ export const ProductForm = () => {
         }
 
         // TODO: Perform the fetch() to POST the object to the API
-        return fetch('http://localhost:8088/products', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(productToSendToAPI)
-        })
-            .then(response => response.json())
-            .then(() => {
-                navigate("/products")
-            })
+        saveNewProduct(productToSendToAPI, navigate)
     }
 
     return (

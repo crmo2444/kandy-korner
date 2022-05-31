@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import { getEmployeeDetails } from "../ApiManager"
 
 export const EmployeeDetails = () => {
     //only displays when route = employee/:employeeId (some number)
@@ -9,12 +10,7 @@ export const EmployeeDetails = () => {
 
     useEffect(
         () => {
-            fetch(`http://localhost:8088/employees?_expand=user&userId=${employeeId}&_expand=location`)
-                .then(response => response.json())
-                .then((data) => {
-                    const singleEmployee = data[0]
-                    updateEmployee(singleEmployee)
-                })
+            getEmployeeDetails(employeeId, updateEmployee)
         },
         [employeeId]
     )

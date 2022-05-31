@@ -1,19 +1,11 @@
 import { useEffect, useState } from "react"
+import { deleteEmployee } from "../ApiManager"
 
 export const EmployeeDelete = ({id, setEmployees}) => {
 
 
     const handleDeleteButtonClick = () => {
-        fetch(`http://localhost:8088/users/${id}`, { method: "DELETE" })
-        .then(
-            () => {
-                fetch(`http://localhost:8088/users?isStaff=true`)
-                .then(response => response.json())
-                .then((employees) => {
-                    setEmployees(employees)
-                })
-            }
-        )
+        deleteEmployee(id, setEmployees)
     }
 
     return <>

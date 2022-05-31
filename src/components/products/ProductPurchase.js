@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { savePurchase } from "../ApiManager";
 
 export const ProductPurchase = ({id, customerId}) => {
 
@@ -27,17 +28,7 @@ export const ProductPurchase = ({id, customerId}) => {
         }
 
         // TODO: Perform the fetch() to POST the object to the API
-        fetch('http://localhost:8088/purchases', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(newPurchase)
-        })
-            .then(response => response.json())
-            .then(() => {
-                setFeedback("Product purchased!")
-            })
+        savePurchase(newPurchase, setFeedback)
         }
 
     return <>

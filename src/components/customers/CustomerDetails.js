@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import { getCustomerDetails, saveCustomerDetails } from "../ApiManager"
 
 export const CustomerDetails = () => {
     //only displays when route = customer/:customerId (some number)
@@ -12,12 +13,7 @@ export const CustomerDetails = () => {
 
     useEffect(
         () => {
-            fetch(`http://localhost:8088/customers?_expand=user&userId=${customerId}`)
-                .then(response => response.json())
-                .then((data) => {
-                    const singleCustomer = data[0]
-                    updateCustomer(singleCustomer)
-                })
+            getCustomerDetails(updateCustomer, customerId)
         },
         [customerId]
     )
@@ -25,17 +21,7 @@ export const CustomerDetails = () => {
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
 
-        return fetch(`http://localhost:8088/customers/${customer.id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(customer)
-        })
-            .then(response => response.json())
-            .then(() => {
-                navigate(`/customers/${customerId}`)
-            })
+        saveCustomerDetails(customer, customerId, navigate)
     }
 
 

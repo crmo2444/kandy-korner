@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { getLocations } from "../ApiManager"
 import "./Locations.css"
 
 export const LocationList = () => {
@@ -6,11 +7,7 @@ export const LocationList = () => {
 
     useEffect(
         () => {
-            fetch(`http://localhost:8088/locations`)
-            .then(response => response.json())
-            .then((locationArray) => {
-                setLocations(locationArray)
-            }) // View the initial state of locations
+            getLocations(setLocations) // View the initial state of locations
         },
         [] // When this array is empty, you are observing initial component state
     )

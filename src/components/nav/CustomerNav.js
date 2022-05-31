@@ -16,6 +16,9 @@ export const CustomerNavBar = () => {
             <li className="navbar__item active">
                 <Link className="navbar__link" to="/products">Products</Link>
             </li>
+            <li className="navbar__item active">
+                <Link className="navbar__link" to="/history">Purchase History</Link>
+            </li>
             {
                 localStorage.getItem("kandy_user")
                     ?

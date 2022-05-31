@@ -8,7 +8,7 @@ export const ProductContainer = () => {
     
     return <>
         <ProductSearch setterFunction = {setSearchTerms} setSearch = {setUserSearch}/>
-        {userSearch ? <ProductList searchTermState = {searchTerms} userSearch = {userSearch}/> : null}
+        <ProductList searchTermState = {searchTerms} userSearch = {userSearch} setSearchTerms = {setSearchTerms}/>
         
     </>
 }

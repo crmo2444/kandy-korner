@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { ProductPurchase } from "./ProductPurchase"
 import "./Products.css"
 
-export const ProductList = ({searchTermState, userSearch}) => {
+export const ProductList = ({searchTermState, userSearch, setSearchTerms}) => {
     const [products, setProducts] = useState([])
     const [productTypes, setProductTypes] = useState([])
     const [sortedProducts, setSorted] = useState([])
@@ -64,14 +65,14 @@ export const ProductList = ({searchTermState, userSearch}) => {
         },
         [overTwo]
     )
-    
+
     return <>
         {kandyUserObject.staff ? <>
         <button onClick={() => navigate("/product/create")}>Create Product</button>
         <button onClick={() => {setOverTwo(true)}}>Top Priced</button>
         <button onClick={() => {setOverTwo(false)}}>Show All</button> 
         </> :
-        <button onClick={() => {setOverTwo(false)}}>Show All</button>}
+        <button onClick={() => {setSearchTerms("")}}>Show All</button>}
 
 
 
@@ -94,11 +95,13 @@ export const ProductList = ({searchTermState, userSearch}) => {
                     {kandyUserObject.staff ? <>
                     <header>Name: {product.name} <br></br>
                     Price: ${product.price} <br></br>
-                    Type: ${type} </header> 
+                    Type: {type} </header> 
                     </>:
                     <>
                     <header>Name: {product.name} <br></br>
-                    Price: ${product.price} </header>
+                    Price: ${product.price} <ProductPurchase 
+                    id={product.id}
+                    customerId={kandyUserObject.id} /></header>
                     </> 
                     }
                 </section>
